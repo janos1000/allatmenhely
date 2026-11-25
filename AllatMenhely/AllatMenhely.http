@@ -1,0 +1,6 @@
+@AllatMenhely_HostAddress = http://localhost:5095
+
+GET {{AllatMenhely_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
