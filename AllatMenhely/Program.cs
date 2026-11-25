@@ -1,3 +1,6 @@
+using AllatMenhely.Models;
+using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 namespace AllatMenhely
 {
@@ -13,6 +16,13 @@ namespace AllatMenhely
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            builder.Services.AddDbContext<AnimalshelterContext>(options =>
+    options.UseMySQL(builder.Configuration.GetConnectionString("Mysql")!)
+);
+
+            builder.Services.AddControllers();
+            builder.Services.AddOpenApi();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -21,8 +31,14 @@ namespace AllatMenhely
                 app.MapOpenApi();
             }
 
-            app.UseAuthorization();
+            if (app.Environment.IsDevelopment())
+            {
+                app.MapOpenApi();
+                app.MapScalarApiReference();
+            }
 
+
+            app.UseAuthorization();
 
             app.MapControllers();
 

@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+
+namespace AllatMenhely.Models;
+
+public partial class AnimalshelterContext : DbContext
+{
+    public AnimalshelterContext()
+    {
+    }
+
+    public AnimalshelterContext(DbContextOptions<AnimalshelterContext> options)
+        : base(options)
+    {
+    }
+
+    public virtual DbSet<Animal> Animals { get; set; }
+
+    public virtual DbSet<Shelter> Shelters { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Animal>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("animals");
+
+            entity.HasIndex(e => e.ShelterId, "FK_animals_shelters");
+
+            entity.Property(e => e.Name).HasMaxLength(40);
+            entity.Property(e => e.RegTime)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime");
+            entity.Property(e => e.Species).HasMaxLength(30);
+
+            entity.HasOne(d => d.Shelter).WithMany(p => p.Animals)
+                .HasForeignKey(d => d.ShelterId)
+                .HasConstraintName("FK_animals_shelters");
+        });
+
+        modelBuilder.Entity<Shelter>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PRIMARY");
+
+            entity.ToTable("shelters");
+
+            entity.Property(e => e.City).HasMaxLength(40);
+            entity.Property(e => e.Name).HasMaxLength(50);
+            entity.Property(e => e.RegTime)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("datetime");
+        });
+
+        OnModelCreatingPartial(modelBuilder);
+    }
+
+    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+}
