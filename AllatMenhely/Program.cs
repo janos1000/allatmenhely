@@ -14,7 +14,6 @@ namespace AllatMenhely
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-            builder.Services.AddOpenApi();
 
             builder.Services.AddDbContext<AnimalshelterContext>(options =>
     options.UseMySQL(builder.Configuration.GetConnectionString("Mysql")!)
@@ -26,10 +25,7 @@ namespace AllatMenhely
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
-            }
+            
 
             if (app.Environment.IsDevelopment())
             {

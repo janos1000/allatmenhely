@@ -16,7 +16,7 @@ namespace AllatMenhely.Controllers
             _context = context;
         }
 
-        // POST /animals/newAnimal
+        
         [HttpPost("newAnimal")]
         public async Task<IActionResult> NewAnimal([FromBody] NewAnimalDto dto)
         {
@@ -50,7 +50,7 @@ namespace AllatMenhely.Controllers
             }
         }
 
-        // GET /animals/allAnimal
+        
         [HttpGet("allAnimal")]
         public async Task<IActionResult> GetAllAnimals()
         {
@@ -62,7 +62,7 @@ namespace AllatMenhely.Controllers
                     return NotFound(new { message = "Nincs megjeleníthető állat az adatbázisban.", result = (object?)null });
                 }
 
-                return Ok(new { message = "Sikeres lekérdezés.", result = animals });
+                return StatusCode(201, new { message = "Sikeres lekérdezés.", result = animals });
             }
             catch (Exception ex)
             {
@@ -70,7 +70,7 @@ namespace AllatMenhely.Controllers
             }
         }
 
-        // GET /animals/byId?id=
+        
         [HttpGet("byId")]
         public async Task<IActionResult> GetAnimalById([FromQuery] Guid id)
         {
@@ -82,7 +82,7 @@ namespace AllatMenhely.Controllers
                     return NotFound(new { message = "A megadott azonosítóval nem található állat.", result = (object?)null });
                 }
 
-                return Ok(new { message = "Sikeres lekérdezés.", result = animal });
+                return StatusCode(201, new { message = "Sikeres lekérdezés.", result = animal });
             }
             catch (Exception ex)
             {
@@ -90,7 +90,7 @@ namespace AllatMenhely.Controllers
             }
         }
 
-        // PUT /animals/update?id=
+        
         [HttpPut("update")]
         public async Task<IActionResult> UpdateAnimal([FromQuery] Guid id, [FromBody] UpdateAnimalDto dto)
         {
@@ -116,7 +116,7 @@ namespace AllatMenhely.Controllers
 
                 await _context.SaveChangesAsync();
 
-                return Ok(new { message = "Sikeres módosítás.", result = animal });
+                return StatusCode(201, new { message = "Sikeres módosítás.", result = animal });
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace AllatMenhely.Controllers
             }
         }
 
-        // DELETE /animals/deleteAnimal?id=
+        
         [HttpDelete("deleteAnimal")]
         public async Task<IActionResult> DeleteAnimal([FromQuery] Guid id)
         {
@@ -139,7 +139,7 @@ namespace AllatMenhely.Controllers
                 _context.Animals.Remove(animal);
                 await _context.SaveChangesAsync();
 
-                return Ok(new { message = "Sikeres törlés.", result = animal });
+                return StatusCode(201, new { message = "Sikeres törlés.", result = animal });
             }
             catch (Exception ex)
             {

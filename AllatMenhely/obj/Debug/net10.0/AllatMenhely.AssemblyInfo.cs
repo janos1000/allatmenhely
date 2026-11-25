@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AllatMenhely")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9d8bd898dc30f05d21cbc3204c8caa53c7f65237")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+72916ffbf8514375d5746d69f731502fe83331fe")]
 [assembly: System.Reflection.AssemblyProductAttribute("AllatMenhely")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AllatMenhely")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
